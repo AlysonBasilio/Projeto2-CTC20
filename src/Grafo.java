@@ -6,7 +6,7 @@ public class Grafo {
 	int numVertices;
 	int numArestas;
 	int arestas[][];
-	int p;//posicao do percurso
+	int p;
 	int percursoForcaBruta[];
 	int custo;
 	int percursoTemp[];
@@ -50,21 +50,13 @@ public class Grafo {
 	}
 	
 	void forcaBruta(int y){
-		//System.out.println("p = "+p);
 		if(percursoTemp[0]==y && p==numVertices){
-			//System.out.println("Entrou nessa porra, custo= "+custoTemp);
 			if(custoTemp<custo){
 				percursoTemp[p]=y;
 				custo=custoTemp;
 				for(int l=0; l<numVertices+1; l++){
 					percursoForcaBruta[l]=percursoTemp[l];
 				}
-				//System.out.println("Percurso Força Bruta Temporário, Custo = "+custo);
-				for(int l=0; l<numVertices+1; l++){
-					//System.out.printf("%4d",percursoForcaBruta[l]);
-				}
-				//System.out.println("");
-				//input.nextLine();
 			}
 			return;
 		}
@@ -84,7 +76,6 @@ public class Grafo {
 					percursoTemp[p]=y;
 					p++;
 					custoTemp+=arestas[y][v];
-					//System.out.println("Vértice atual: "+y+" Próximo: "+v);
 					forcaBruta(v);
 					p--;
 					custoTemp-=arestas[y][v];
@@ -93,4 +84,40 @@ public class Grafo {
 		}
 	}
 	
+	void HeldKarp(){
+		Grupo g[] = new Grupo[numVertices];
+		Grupo gtemp[] = new Grupo[numVertices];
+		int n1=0;
+		int tam=0;
+		for(int k=1; k<numVertices; k++){
+			if(arestas[0][k]!=-1){
+				g[n1].verticeEntrada=k;
+				g[n1].menorDistancia=arestas[0][k];
+				g[n1++].grupoSaida=g[0];
+			}
+		}
+		int n2=n1;
+		tam=n2;
+		n1=0;
+		
+		/*for(int k=0; k<tam; k++){
+			gtemp[k].verticeEntrada=gtemp[k].verticeEntrada;
+			gtemp[k].menorDistancia=g[k].menorDistancia;
+			gtemp[k].grupoSaida=g[k].grupoSaida;
+		}*/
+		
+		for(int j=1; j<numVertices; j++){	
+			for(int k=n1; k<n2; k++){
+				for(int l=j+1; l<numVertices; l++){	
+					if(arestas[l][g[k].verticeEntrada]!=-1){
+						g[tam].verticeEntrada=l;
+						g[tam].grupoSaida=g[k];
+						g[tam++].menorDistancia=arestas[j][g[k].verticeEntrada]+g[k].menorDistancia;
+					}
+				}
+			}
+			n1=n2;
+			n2=tam;
+		}
+	}
 }
