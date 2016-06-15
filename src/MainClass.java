@@ -10,7 +10,13 @@ public class MainClass {
 			}
 			System.out.println("");
 		}
-		System.out.println(g.verificaHamilton());
+		g.forcaBruta(0);
+		
+		System.out.println("");
+		for(int l=0; l<g.numVertices+1; l++){
+			System.out.printf("%4d",g.percursoForcaBruta[l]);
+		}
+		System.out.println("\nCusto = "+g.custo);
 	}
 	
 }
