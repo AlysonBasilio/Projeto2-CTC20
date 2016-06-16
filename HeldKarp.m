@@ -1,17 +1,40 @@
-function [custo, circuito ] = HeldKarp( g )
-    %Gerar todos os subconjuntos de g:
-    K(length(g))=0;
-    for i = 1:length(g)
-        K1=nchoosek(1:length(g),i);
-        if(length(g)-i~=0)
-            m(nchoosek(length(g),i),length(g)-i)=0;
-            K1=horzcat(K1,m);
-        end
-        K=vertcat(K,K1);
-        clear m;
-        clear K1;
-    end
-    K
-    custo =0;
-    circuito =0;
+function [custo, percurso] = HeldKarp( grafo )
+   %Calculando número de sets
+   numSets = 2^length(grafo);
+   G(numSets).custo;
+   G(numSets).vertPartida;
+   G(numSets).set=[];
+   G(numSets).indiceSetAnterior;
+   G(numSets).m;
+   
+   G(1).custo = 0;
+   G(1).vertPartida = 0;
+   G(1).set = [];
+   G(1).indiceSetAnterior = 0;
+   
+   for k = 2:length(g)
+       G(k).custo = grafo(1,k);
+       G(k).vertPartida = k;
+       G(k).set = [k];
+       G(k).indiceSetAnterior = 1;
+   end
+   
+   k = length(g)+1;
+   n1=2;
+   n2=length(g);
+   
+   for i = 3:length(g)
+       for j = n1:n2
+           for l = 1:length(G(j).set)
+               G(k).custo = min([]);
+               G(k).vertPartida = k;
+               G(k).set = [k];
+               G(k).indiceSetAnterior = 1;
+           end    
+       end
+       n1=n2+1;
+       n2=k;
+   end
+   
 end
+
