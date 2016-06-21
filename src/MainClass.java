@@ -39,10 +39,9 @@ public class MainClass {
 		//g.HeldKarp();
 		System.out.println("\nAlgoritmo Held-Karp: ");
 		System.out.println("Percurso = ");
-		for(int l=0; l<g.numVertices+1; l++){
-			System.out.printf("%4d",h.percursofinal[l]);
-		}
-		System.out.println("\nCusto = "+h.custo);/*memoriaFinal = rt.freeMemory();
+		System.out.println(h.percursoHeldKarp);
+		System.out.println("\nCusto = "+h.custoHeldKarp);
+		/*memoriaFinal = rt.freeMemory();
 		fim = System.nanoTime();
 		System.out.println("Tempo de execução: " + (fim-inicio)+" ns");
 		System.out.println("Memória Usada: " + (memoriaInicial - memoriaFinal));*/
